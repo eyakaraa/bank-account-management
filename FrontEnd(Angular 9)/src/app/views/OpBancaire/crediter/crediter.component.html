@@ -1,0 +1,105 @@
+
+<div class="row" *ngIf="accepte">
+    <div class="card">
+     
+        <div class="card-body">
+          <form class="form-horizontal" #modif= "ngForm" [formGroup]="modifForm" (ngSubmit)="onSubmitmodif(modif.value)">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                  </div>
+                  <input type="text" formControlName="solde"  name="solde" class="form-control" placeholder="montant à crediter" [ngClass]="{ 'is-invalid': submitted2 && ff.solde.errors }">
+                </div>
+              </div>
+              
+            </div>
+            <div class="form-group row" *ngIf="typeCnx==='Client'">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                  </div>
+                  <input type="text" formControlName="num"  name="num" class="form-control" placeholder="num compte de debiter" [ngClass]="{ 'is-invalid': submitted2 && ff.num.errors }">
+                </div>
+              </div>
+              
+            </div>
+               
+              <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
+              <button type="reset" class="btn btn-sm btn-danger" (click)="onResetmodif()"><i class="fa fa-ban"></i> Reset</button>
+         
+            
+          </form>
+        </div>
+        <div class="card-footer">
+          <div>{{retourApi}}</div>
+            </div>
+      </div>
+
+</div>
+
+<div class="row">
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-plus fa-lg"></i> 
+    </div>
+    <div class="card-body">
+
+        <form class="form-horizontal" #crediter= "ngForm" [formGroup]="crediterForm" (ngSubmit)="onSubmit(crediter.value)">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                  </div>
+                  <input type="text" formControlName="numCarte"  name="numCarte" class="form-control" placeholder="N° Carte" [ngClass]="{ 'is-invalid': submitted && f.numCarte.errors }">
+                </div>
+              </div>
+              
+            </div>
+            
+              <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
+              <button type="reset" class="btn btn-sm btn-danger" (click)="onReset()"><i class="fa fa-ban"></i> Reset</button>
+         
+            
+          </form>
+<div  *ngIf="dataavailbale_allCompte" >
+<br>
+  <i class="fa fa-hand-pointer-o fa-lg"></i> Compte de Client {{client}}
+<br>
+      <table class="table table-bordered text-center" >
+        <thead>
+          <tr>
+              <th><i class="fa fa-hashtag fa-lg"></i></th>
+              <th>Solde</th>
+              <th>Decouvert</th>
+              <th>Crediter</th>
+          </tr>
+        </thead>
+       
+        <tbody *ngFor="let item of Comptes">
+          
+          <tr >
+            <td>{{item.id}}</td>
+            <td>{{item.solde}}</td>
+            <td>{{item.decouvert}}</td>
+            <td class="justify-content-center">     
+                <button type="button" class="btn btn-block btn-warning btn-sm w-50 active" (click)="crediteritem(item)">
+                    <i class="fa fa-recycle"></i>
+                </button>  
+            </td>
+          
+          </tr>
+        
+        </tbody>
+   
+      </table>
+    </div>
+    </div>
+   
+  </div>
+
+</div>
+

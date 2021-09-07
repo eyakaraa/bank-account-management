@@ -1,0 +1,99 @@
+
+
+<div class="row">
+    <div class="col-sm-6">
+    <div class="card">
+       
+        <div class="card-body">
+          <form class="form-horizontal" #add= "ngForm" [formGroup]="ajoutForm" (ngSubmit)="onSubmit(add.value)">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                  </div>
+                  <input type="text" formControlName="numcarte"  name="numcarte" class="form-control" placeholder="N ° Carte" [ngClass]="{ 'is-invalid': submitted && f.numcarte.errors }">
+                </div>
+              </div>
+              
+            </div>
+         
+              <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
+              <button type="reset" class="btn btn-sm btn-danger" (click)="onReset()"><i class="fa fa-ban"></i> Reset</button>
+         
+            
+          </form>
+        </div>
+     
+      </div>
+    </div>
+   
+  <div class="card" *ngIf="validGet">
+    <div class="card-header">
+      <strong> Information de client : {{clt.numCarte}} </strong> 
+    </div>
+    <div class="card-body">
+     
+
+
+        <table class="table table-borderless">
+            
+            <tbody>
+              <tr>
+                <th scope="row">Nom</th>
+                <td>{{clt.nom}}</td>
+                
+              </tr>
+              <tr>
+                <th scope="row">Prenom</th>
+                <td>{{clt.prenom}}</td>
+                
+              </tr>
+              <tr>
+                <th scope="row">Date de Naissance</th>
+                <td>{{clt.dateN}}</td>
+                
+              </tr>
+              <tr>
+                <th scope="row">Email</th>
+                <td>{{clt.mail}}</td>
+                
+              </tr>
+              <tr>
+                <th scope="row">Tel</th>
+                <td>{{clt.tel}}</td>
+                
+              </tr>
+            </tbody>
+          </table>
+<br>
+<strong>Comptes :</strong>
+
+
+
+  <table class="table table-bordered text-center" >
+    <thead>
+      <tr>
+          <th><i class="fa fa-hashtag fa-lg"></i></th>
+          <th>Solde</th>
+          <th>Decouvert</th>
+      </tr>
+    </thead>
+   
+    <tbody *ngFor="let item of clt.LCompte" >
+      
+      <tr>
+        <td>{{item.id}}</td>
+        <td>{{item.solde}}</td> 
+        <td>{{item.decouvert}}</td>  
+    
+      
+      </tr>
+    
+    </tbody>
+
+  </table>
+
+    </div>
+  
+  </div>

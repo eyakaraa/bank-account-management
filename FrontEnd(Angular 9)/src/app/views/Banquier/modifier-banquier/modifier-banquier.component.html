@@ -1,0 +1,173 @@
+<div class="row" *ngIf="accepteModif">
+    <div class="col-sm-6">
+    <div class="card">
+        <div class="card-header">
+          <strong><i class="fa fa-plus"></i></strong> 
+        </div>
+        <div class="card-body">
+          <form class="form-horizontal" #modif= "ngForm" [formGroup]="modifForm" (ngSubmit)="onSubmit(modif.value)">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                  </div>
+                  <input type="text" formControlName="nom"  name="nom" class="form-control" placeholder="Nom" [ngClass]="{ 'is-invalid': submitted && f.nom.errors }">
+                </div>
+              </div>
+              
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" formControlName="prenom" name="prenom" class="form-control" placeholder="Prenom" [ngClass]="{ 'is-invalid': submitted && f.prenom.errors }">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                    </div>
+                    <input type="text" formControlName="tel" name="tel" class="form-control" placeholder="Tel" [ngClass]="{ 'is-invalid': submitted && f.tel.errors }">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group row ">
+                <div *ngFor="let type of radio"> 
+                <div class="col-8 text-center">
+                 
+                    
+                    <div class="form-check form-check-inline"> 
+                      <input class="form-check-input" type="radio" name="radio" id="inlineRadio1" value="{{type}}" (change)="radioevent($event)">
+                      <label class="form-check-label" for="inlineRadio1">{{type}}</label>
+                    </div>
+                </div>
+                   
+                
+              </div>
+              <div *ngIf="afficheImg" class="col-4 text-center">
+                 
+                <img src="assets/icon.png">
+              </div>
+              </div>
+              <div class="form-group row" *ngIf="radioselect">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input  type="number" formControlName="sup" id="sup" value={{supId}} name="sup" class="form-control" placeholder="sup" disabled [ngClass]="{ 'is-invalid': submitted && f.sup.errors }">
+                  </div>
+                </div>
+              </div>
+              
+             
+              <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
+              <button type="reset" class="btn btn-sm btn-danger" (click)="onReset()"><i class="fa fa-ban"></i> Reset</button>
+         
+            
+          </form>
+        </div>
+        <div class="card-footer">
+          <div>{{retourApi}}</div>
+            </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card" *ngIf="dataavailbale_allEmployers && radioselect">
+        <div class="card-header">
+          <i class="fa fa-hand-pointer-o fa-lg"></i> selectioner le chef d'agence
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="rechercher" [(ngModel)]="term">
+        </div>
+          <table class="table table-bordered text-center" >
+            <thead>
+              <tr>
+                <th>Nom</th>
+              <th>Prenom</th>
+              <th>selectioner</th>
+              </tr>
+            </thead>
+           
+            <tbody *ngFor="let item of employers |filter: term | paginate: config" >
+              
+              <tr  *ngIf="item.type == 'chefAgence'">
+                
+                <td>{{item.nom}}</td>
+                <td>{{item.prenom}}</td>
+                <td class="justify-content-center">     
+                    <button type="button" class="btn btn-block btn-info btn-sm w-50 active" (click)="addSup(item.id)">
+                      <i class="fa fa-check"></i>
+                    </button>  
+                </td>
+              
+              </tr>
+            
+            </tbody>
+          
+          </table>
+          <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    
+        </div>
+      </div>
+    
+    </div>
+</div>
+<div class="row">
+
+    <div class="card">
+        <div class="card-header">
+            <i class="fa fa-recycle fa-lg"></i> 
+        </div>
+        <div class="card-body" *ngIf="dataavailbale_allEmployers">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="rechercher" [(ngModel)]="term">
+        </div>
+          <table class="table table-bordered text-center" >
+            <thead>
+              <tr>
+                  <th><i class="fa fa-hashtag fa-lg"></i></th>
+                <th>Nom</th>
+              <th>Prenom</th>
+              <th>Telephone</th>
+              <th>Type</th>
+              <th>Supérieur</th>
+              <th>Email</th>
+              <th>Modifier</th>
+              </tr>
+            </thead>
+           
+            <tbody *ngFor="let item of employers |filter: term | paginate: config" >
+              
+              <tr >
+                <td>{{item.id}}</td>
+                <td>{{item.nom}}</td>
+                <td>{{item.prenom}}</td>
+                <td>{{item.tel}}</td>
+                <td>{{item.type}}</td>
+                <td>{{item.superieur}}</td>
+                <td>{{item.login}}</td>
+                <td class="justify-content-center">     
+                    <button type="button" class="btn btn-block btn-warning btn-sm w-50 active" (click)="modifier(item)">
+                      <i class="fa fa-recycle"></i>
+                    </button>  
+                </td>
+              
+              </tr>
+            
+            </tbody>
+       
+          </table>
+          <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+    
+        </div>
+       
+      </div>
+      </div>

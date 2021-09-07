@@ -1,0 +1,33 @@
+<div class="card">
+    
+    <div class="card-body" *ngIf="dataavailbale_allCaissier">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="rechercher" [(ngModel)]="term">
+    </div>
+      <table class="table table-bordered text-center" >
+        <thead>
+          <tr>
+          <th><i class="fa fa-hashtag fa-lg"></i></th>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>Telephone</th>
+           </tr>
+        </thead>
+       
+        <tbody *ngFor="let item of Caissiers |filter: term | paginate: config" >
+          
+          <tr >
+            <td>{{item.id}}</td>
+            <td>{{item.nom}}</td>
+            <td>{{item.prenom}}</td>
+            <td>{{item.tel}}</td>
+               </tr>
+        
+        </tbody>
+   
+      </table>
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+
+    </div>
+   
+  </div>

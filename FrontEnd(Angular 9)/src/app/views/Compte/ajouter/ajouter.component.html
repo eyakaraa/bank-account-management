@@ -1,0 +1,78 @@
+<div class="row">
+    <div class="col-sm-6">
+    <div class="card">
+        <div class="card-header">
+          <strong><i class="fa fa-plus"></i></strong> 
+        </div>
+        <div class="card-body">
+          <form class="form-horizontal" #add= "ngForm" [formGroup]="ajoutForm" (ngSubmit)="onSubmit(add.value)">
+            <div class="form-group row">
+              <div class="col-md-12">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                  </div>
+                  <input type="text" formControlName="numCarte"  name="numCarte" class="form-control" placeholder="numCarte" [ngClass]="{ 'is-invalid': submitted && f.numCarte.errors }">
+                </div>
+              </div>
+              
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" formControlName="solde" name="solde" class="form-control" placeholder="solde" [ngClass]="{ 'is-invalid': submitted && f.solde.errors }">
+                  </div>
+                </div>
+              </div>
+            
+              <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
+              <button type="reset" class="btn btn-sm btn-danger" (click)="onReset()"><i class="fa fa-ban"></i> Reset</button>
+         
+            
+          </form>
+        </div>
+        <div class="card-footer">
+          <div>{{retourApi}}</div>
+            </div>
+      </div>
+    </div>
+
+
+
+    <div class="col-sm-6">
+      <div class="card" *ngIf="dataavailbale_allCompte">
+        <div class="card-header">
+          <i class="fa fa-hand-pointer-o fa-lg"></i> Compte de Client {{client}}
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered text-center" >
+            <thead>
+              <tr>
+                <th><i class="fa fa-hashtag fa-lg"></i></th>
+              <th>Solde</th>
+              <th>Decouvert</th>
+              </tr>
+            </thead>
+           
+            <tbody *ngFor="let item of Comptes" >
+              
+              <tr>
+                
+                <td>{{item.id}}</td>
+                <td>{{item.solde}}</td>
+                <td>{{item.decouvert}}</td>
+              
+              
+              </tr>
+            
+            </tbody>
+          
+          </table>
+    
+        </div>
+      </div>
+    
+    </div>

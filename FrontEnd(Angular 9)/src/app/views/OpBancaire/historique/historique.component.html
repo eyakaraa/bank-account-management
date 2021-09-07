@@ -1,0 +1,107 @@
+<div class="row" *ngIf="dataavailbale_allHistorique">
+    <div class="card">
+        <div class="card-header">
+          <i class="fa fa-hand-pointer-o fa-lg"></i> Compte :{{idCompte}}
+                </div>
+        <div class="card-body">
+    
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="rechercher" [(ngModel)]="term">
+          </div>
+            <table class="table table-bordered text-center" >
+              <thead>
+                <tr>
+                    <th><i class="fa fa-hashtag fa-lg"></i></th>
+                  <th>Solde Intial</th>
+                <th>Solde Finale</th>
+                <th>Decouvert Intial</th>
+                <th>Decouvert Finale</th>
+                <th>Date</th>
+
+                </tr>
+              </thead>
+             
+              <tbody *ngFor="let item of historiques |filter: term | paginate: config" >
+                
+                <tr >
+                  <td>{{item.id}}</td>
+                  <td>{{item.soldeIntial}}</td>
+                  <td>{{item.soldeFinal}}</td>
+                  <td>{{item.decouvertIntial}}</td>
+                  <td>{{item.decouvertFinale}}</td>
+                  <td>{{item.date}}</td>
+                
+                
+                </tr>
+              
+              </tbody>
+         
+            </table>
+            <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+      
+          </div>
+     
+      </div>
+
+</div>
+
+
+<div class="row">
+    <div class="card">
+        
+        <div class="card-body">
+    
+            <form class="form-horizontal" #historique= "ngForm" [formGroup]="historiqueForm" (ngSubmit)="onSubmit(historique.value)">
+                <div class="form-group row">
+                  <div class="col-md-12">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
+                      </div>
+                      <input type="text" formControlName="numCarte"  name="numCarte" class="form-control" placeholder="N° Carte" [ngClass]="{ 'is-invalid': submitted && f.numCarte.errors }">
+                    </div>
+                  </div>
+                  
+                </div>
+                
+                  <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Submit</button>
+                  <button type="reset" class="btn btn-sm btn-danger" (click)="onReset()"><i class="fa fa-ban"></i> Reset</button>
+             
+                
+              </form>
+    <div  *ngIf="dataavailbale_allCompte" >
+              <i class="fa fa-hand-pointer-o fa-lg"></i> Compte de Client {{client}}
+    
+          <table class="table table-bordered text-center" >
+            <thead>
+              <tr>
+                  <th><i class="fa fa-hashtag fa-lg"></i></th>
+                  <th>Solde</th>
+                  <th>Decouvert</th>
+                  <th>Historique</th>
+              </tr>
+            </thead>
+           
+            <tbody *ngFor="let item of Comptes">
+              
+              <tr >
+                <td>{{item.id}}</td>
+                <td>{{item.solde}}</td>
+                <td>{{item.decouvert}}</td>
+                <td class="justify-content-center">     
+                    <button type="button" class="btn btn-block btn-warning btn-sm w-50 active" (click)="getHistorique(item.id)">
+                        <i class="fa fa-recycle"></i>
+                    </button>  
+                </td>
+              
+              </tr>
+            
+            </tbody>
+       
+          </table>
+        </div>
+        </div>
+       
+      </div>
+    
+    </div>

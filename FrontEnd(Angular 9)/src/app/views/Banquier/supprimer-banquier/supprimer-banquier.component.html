@@ -1,0 +1,50 @@
+<div class="card">
+    <div class="card-header">
+        <i class="fa fa-remove fa-lg"></i> 
+    </div>
+    <div class="card-body" *ngIf="dataavailbale_allEmployers">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="rechercher" [(ngModel)]="term">
+    </div>
+      <table class="table table-bordered text-center" >
+        <thead>
+          <tr>
+              <th><i class="fa fa-hashtag fa-lg"></i></th>
+            <th>Nom</th>
+          <th>Prenom</th>
+          <th>Telephone</th>
+          <th>Type</th>
+          <th>Supérieur</th>
+          <th>Email</th>
+          <th>Supprimer</th>
+          </tr>
+        </thead>
+       
+        <tbody *ngFor="let item of employers |filter: term | paginate: config" >
+          
+          <tr >
+            <td>{{item.id}}</td>
+            <td>{{item.nom}}</td>
+            <td>{{item.prenom}}</td>
+            <td>{{item.tel}}</td>
+            <td>{{item.type}}</td>
+            <td>{{item.superieur}}</td>
+            <td>{{item.login}}</td>
+            <td class="justify-content-center">     
+                <button type="button" class="btn btn-block btn-danger btn-sm w-50 active" (click)="Supprimer(item.id)">
+                  <i class="fa fa-remove"></i>
+                </button>  
+            </td>
+          
+          </tr>
+        
+        </tbody>
+   
+      </table>
+      <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+
+    </div>
+    <div class="card-footer">
+        <div>{{retourApi}}</div>
+          </div>
+  </div>

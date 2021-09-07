@@ -1,0 +1,83 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-body">
+                <form class="form-horizontal" #login= "ngForm" [formGroup]="loginForm" (ngSubmit)="onSubmit(login.value)">
+                  <h1>S'identifier</h1>
+                  <p class="text-muted">Connectez-vous à votre compte</p>
+
+
+                  <div class="form-group row">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="icon-user"></i></span>
+                        </div>
+                        <input type="text" formControlName="email"  name="email" class="form-control" placeholder="login" [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-md-12">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="icon-lock"></i></span>
+                        </div>
+                        <input type="password" formControlName="mdp"  name="mdp" class="form-control" placeholder="Mot de passe" [ngClass]="{ 'is-invalid': submitted && f.mdp.errors }">
+                      </div>
+                    </div>
+                    
+                  </div>
+                  <div class="form-group row ">
+                    <div *ngFor="let type of radio"> 
+                    <div class="col-8 text-center">
+                     
+                        
+                        <div class="form-check form-check-inline"> 
+                          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="{{type}}" (change)="radioevent($event)">
+                          <label class="form-check-label" for="inlineRadio1">{{type}}</label>
+                        </div>
+                    </div>
+                       
+                    
+                  </div>
+                  <div *ngIf="afficheImg" class="col-4 text-center">
+                     
+                    <img src="assets/icon.png">
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="submit" class="btn btn-primary px-4">Connecter</button>
+                    </div>
+                    <div class="col-6 text-right">
+                     <!-- <button type="button" class="btn btn-link px-0">Mot de passe oublié?</button>-->
+                    </div>
+                  </div>
+                </form>
+              </div>
+                <div class="text-danger">{{loginError}}</div>
+            </div>
+            <div class="card text-white bg-primary py-5 d-md-down-none" style="width:25%">
+              <div class="card-body text-center mx-auto">
+                <div>
+                 <img src="assets/logo.jpg"  class="img-avatar w-50" alt="admin"/>
+                 <br>
+                 <br>
+               
+              </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </main>
+</div>
